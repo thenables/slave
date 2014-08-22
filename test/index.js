@@ -60,7 +60,7 @@ describe('Slave', function () {
     })
 
     var fns = []
-    for (var i = 0; i < 10; i++) (function (i) {
+    for (var i = 0; i < 100; i++) (function (i) {
       fns.push(fn(i).then(function (val) {
         assert.equal(val, i)
       }))

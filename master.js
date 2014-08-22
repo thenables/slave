@@ -52,13 +52,15 @@ function Master(filename, options) {
     var args = slice.call(arguments)
     var proc = runner.select()
     proc.queue++
+    proc._maxListeners++
     var id = _id++
 
     return new Promise(function (resolve, reject) {
       proc.on('message', function onmessage(res) {
         if (res.id !== id) return
-        proc.queue--
         proc.removeListener('message', onmessage)
+        proc.queue--
+        proc._maxListeners--
         if ('value' in res) return resolve(res.value)
         else reject(JSONToError(res.error))
       })
