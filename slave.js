@@ -1,6 +1,6 @@
 
 var co = require('awaitable')
-var isGenFun = require('is-generator').fn
+var isGenFun = require('is-generator-function')
 
 module.exports = function (fn) {
   if (isGenFun(fn)) fn = co.wrap(fn)
