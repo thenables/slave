@@ -13,7 +13,7 @@
   "dependencies": {
     "native-or-bluebird": "1",
     "awaitable": "1",
-    "is-generator": "1"
+    "is-generator-function": "~1.0.0"
   },
   "devDependencies": {
     "bluebird": "2",
