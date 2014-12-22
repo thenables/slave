@@ -12,7 +12,7 @@
   "repository": "thenables/slave",
   "dependencies": {
     "native-or-bluebird": "1",
-    "awaitable": "1",
+    "co": "4",
     "is-generator": "1"
   },
   "devDependencies": {

@@ -1,10 +1,9 @@
 
-var co = require('awaitable')
-var isGenFun = require('is-generator').fn
+var Promise = require('native-or-bluebird')
+var isGenerator = require('is-generator')
+var co = require('co')
 
 module.exports = function (fn) {
-  if (isGenFun(fn)) fn = co.wrap(fn)
-
   process.on('message', function (m) {
     var thing
     try {
@@ -17,12 +16,8 @@ module.exports = function (fn) {
       return
     }
 
-    if (!isPromise(thing)) return process.send({
-      id: m.id,
-      value: thing,
-    })
-
-    thing.then(function (val) {
+    if (isGenerator(thing)) thing = co(thing)
+    Promise.resolve(thing).then(function (val) {
       process.send({
         id: m.id,
         value: val
@@ -34,10 +29,6 @@ module.exports = function (fn) {
       })
     })
   })
-}
-
-function isPromise(x) {
-  return x && typeof x.then === 'function'
 }
 
 function errorToJSON(err) {
