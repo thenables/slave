@@ -16,8 +16,7 @@ module.exports = function (fn) {
       return
     }
 
-    if (isGenerator(thing)) thing = co(thing)
-    Promise.resolve(thing).then(function (val) {
+    Promise.resolve(isGenerator(thing) ? co(thing) : thing).then(function (val) {
       process.send({
         id: m.id,
         value: val

@@ -61,8 +61,8 @@ function Master(filename, options) {
         proc.removeListener('message', onmessage)
         proc.queue--
         proc._maxListeners--
-        if ('value' in res) return resolve(res.value)
-        else reject(JSONToError(res.error))
+        if ('error' in res) return reject(JSONToError(res.error))
+        resolve(res.value)
       })
 
       proc.send({
