@@ -3,13 +3,13 @@ var Promise = require('native-or-bluebird')
 var cp = require('child_process')
 
 var slice = [].slice
+var _id = 0 // global ID increment
 
 module.exports = Master
 
 function Master(filename, options) {
   options = options || {}
   var slaves = []
-  var _id = 0
 
   // create a new child process
   runner.fork = function () {
